@@ -146,17 +146,17 @@ void PlyFileObject::updateDataMask(int neededDataMask)
 		cm.vert.EnableTexCoord();
 }
 
-__declspec(dllexport) PlyFileObject* LoadPly(const char* fileName)
+DLL_PUBLIC PlyFileObject* LoadPly(const char* fileName)
 {
 	return new PlyFileObject(fileName);
 }
 
-__declspec(dllexport) void UnLoadPly(PlyFileObject* plyFile)
+DLL_PUBLIC void UnLoadPly(PlyFileObject* plyFile)
 {
 	delete plyFile;
 }
 
-__declspec(dllexport) float* GetPlyVerts(PlyFileObject* plyFile, unsigned int& count)
+DLL_PUBLIC float* GetPlyVerts(PlyFileObject* plyFile, unsigned int& count)
 {
 	if (plyFile == NULL)
 		return NULL;
@@ -165,7 +165,7 @@ __declspec(dllexport) float* GetPlyVerts(PlyFileObject* plyFile, unsigned int& c
 	return plyFile->verts.data();
 }
 
-__declspec(dllexport) float* GetPlyNormals(PlyFileObject* plyFile, unsigned int& count)
+DLL_PUBLIC float* GetPlyNormals(PlyFileObject* plyFile, unsigned int& count)
 {
 	if (plyFile == NULL)
 		return NULL;
@@ -174,7 +174,7 @@ __declspec(dllexport) float* GetPlyNormals(PlyFileObject* plyFile, unsigned int&
 	return plyFile->norms.data();
 }
 
-__declspec(dllexport) unsigned char* GetPlyColors(PlyFileObject* plyFile, unsigned int& count)
+DLL_PUBLIC unsigned char* GetPlyColors(PlyFileObject* plyFile, unsigned int& count)
 {
 	if (plyFile == NULL)
 		return NULL;
@@ -183,7 +183,7 @@ __declspec(dllexport) unsigned char* GetPlyColors(PlyFileObject* plyFile, unsign
 	return plyFile->colors.data();
 }
 
-__declspec(dllexport) unsigned int* GetPlyIndexs(PlyFileObject* plyFile, unsigned int& count)
+DLL_PUBLIC unsigned int* GetPlyIndexs(PlyFileObject* plyFile, unsigned int& count)
 {
 	if (plyFile == NULL)
 		return NULL;
@@ -192,7 +192,7 @@ __declspec(dllexport) unsigned int* GetPlyIndexs(PlyFileObject* plyFile, unsigne
 	return plyFile->faces.data();
 }
 
-__declspec(dllexport) float* GetPlyUvs(PlyFileObject* plyFile, unsigned int& count)
+DLL_PUBLIC float* GetPlyUvs(PlyFileObject* plyFile, unsigned int& count)
 {
 	if (plyFile == NULL)
 		return NULL;
@@ -201,7 +201,7 @@ __declspec(dllexport) float* GetPlyUvs(PlyFileObject* plyFile, unsigned int& cou
 	return plyFile->uvCoords.data();
 }
 
-__declspec(dllexport) const char* GetPlyTextureName(PlyFileObject* plyFile)
+DLL_PUBLIC const char* GetPlyTextureName(PlyFileObject* plyFile)
 {
 	if (plyFile == NULL || plyFile->cm.textures.size() == 0)
 		return NULL;

@@ -1,5 +1,30 @@
 #pragma once
 
+#if defined _WIN32 || defined __CYGWIN__ || defined __MINGW32__
+    #ifdef BUILDING_DLL
+        #ifdef __GNUC__
+            #define DLL_PUBLIC __attribute__ ((dllexport))
+        #else
+            #define DLL_PUBLIC __declspec(dllexport) 
+        #endif
+    #else
+        #ifdef __GNUC__
+            #define DLL_PUBLIC __attribute__ ((dllimport))
+        #else
+            #define DLL_PUBLIC __declspec(dllimport) 
+        #endif
+    #endif
+    #define DLL_LOCAL
+#else
+    #if __GNUC__ >= 4
+        #define DLL_PUBLIC __attribute__ ((visibility ("default")))
+        #define DLL_LOCAL  __attribute__ ((visibility ("hidden")))
+    #else
+        #define DLL_PUBLIC
+        #define DLL_LOCAL
+    #endif
+#endif
+
 #include <vector>
 #include <string>
 #include "ml_mesh_type.h"
@@ -67,19 +92,19 @@ private:
 };
 
 extern "C" {
-	__declspec(dllexport) PlyFileObject* LoadPly(const char* fileName);
+	DLL_PUBLIC PlyFileObject* LoadPly(const char* fileName);
 
-	__declspec(dllexport) void UnLoadPly(PlyFileObject* plyFile);
+	DLL_PUBLIC void UnLoadPly(PlyFileObject* plyFile);
 
-	__declspec(dllexport) float* GetPlyVerts(PlyFileObject* plyFile, unsigned int& count);
+	DLL_PUBLIC float* GetPlyVerts(PlyFileObject* plyFile, unsigned int& count);
 
-	__declspec(dllexport) float* GetPlyNormals(PlyFileObject* plyFile, unsigned int& count);
+	DLL_PUBLIC float* GetPlyNormals(PlyFileObject* plyFile, unsigned int& count);
 
-	__declspec(dllexport) unsigned char* GetPlyColors(PlyFileObject* plyFile, unsigned int& count);
+	DLL_PUBLIC unsigned char* GetPlyColors(PlyFileObject* plyFile, unsigned int& count);
 
-	__declspec(dllexport) unsigned int* GetPlyIndexs(PlyFileObject* plyFile, unsigned int& count);
+	DLL_PUBLIC unsigned int* GetPlyIndexs(PlyFileObject* plyFile, unsigned int& count);
 
-	__declspec(dllexport) float* GetPlyUvs(PlyFileObject* plyFile, unsigned int& count);
+	DLL_PUBLIC float* GetPlyUvs(PlyFileObject* plyFile, unsigned int& count);
 
-	__declspec(dllexport) const char* GetPlyTextureName(PlyFileObject* plyFile);
+	DLL_PUBLIC const char* GetPlyTextureName(PlyFileObject* plyFile);
 };
